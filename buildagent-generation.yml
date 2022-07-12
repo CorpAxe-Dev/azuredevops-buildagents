@@ -2,8 +2,9 @@ parameters:
 - name: image_type
   displayName: Build Agent Image
   type: string
-  default: windows2019
+  default: windows2022
   values:
+  - windows2022
   - windows2019
   - ubuntu2004
 - name: variable_group
@@ -149,6 +150,9 @@ jobs:
   variables:
   - name: ManagedImageId
     value: $[ dependencies.managedimagegeneration.outputs['createmanagedimage.ManagedImageId'] ]
+  - ${{ if eq(parameters.image_type, 'windows2022') }}:
+    - name: VmssName
+      value: $[variables.VMSS_Windows2022]
   - ${{ if eq(parameters.image_type, 'windows2019') }}:
     - name: VmssName
       value: $[variables.VMSS_Windows2019]
