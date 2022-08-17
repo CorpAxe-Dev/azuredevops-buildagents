@@ -30,9 +30,12 @@ jobs:
     name: ${{ parameters.agent_pool }}
 
   steps:    
-  - script: |
-      git clone https://github.com/actions/virtual-environments.git
-    displayName: 'Clone the GitHub repository'
+  - ${{ if eq(parameters.image_type, 'windows2022') }}:
+    - script: git clone --depth 1 --branch win22/20220808.1 https://github.com/actions/runner-images.git
+      displayName: 'Clone the GitHub repository'
+  - ${{ else }}:
+    - script: git clone https://github.com/actions/runner-images.git
+      displayName: 'Clone the GitHub repository'
 
   - task: PowerShell@2
     name: setVars
