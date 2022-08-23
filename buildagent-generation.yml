@@ -47,7 +47,7 @@ jobs:
         $ImageType = "${{ parameters.image_type }}"
         $TemplateDirectoryName = if ($ImageType.StartsWith("ubuntu")) { "linux" } else { "win" }
         $OsType = if ($ImageType.StartsWith("ubuntu")) { "Linux" } else { "Windows" }
-        $TemplateDirectoryPath = Join-Path (Join-Path "virtual-environments" "images") $TemplateDirectoryName | Resolve-Path
+        $TemplateDirectoryPath = Join-Path (Join-Path "runner-images" "images") $TemplateDirectoryName | Resolve-Path
         $TemplatePath = Join-Path $TemplateDirectoryPath "$ImageType.json"
         $ImageReadmeNameConcat = "${{ parameters.image_type }}-Readme.md"
         $ImageReadmeName = $ImageReadmeNameConcat.Substring(0,1).ToUpper()+$ImageReadmeNameConcat.Substring(1)
